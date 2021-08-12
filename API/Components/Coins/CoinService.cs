@@ -97,6 +97,27 @@ namespace API.Components.Coins
             return result;
         }
 
+        public async Task<BuyResponseDTO> RetrieveMoney()
+        {
+            var changeCoins = new List<Change>();
+            await _context.Coins.ForEachAsync(c =>
+            {
+                changeCoins.Add(new Change
+                {
+                    Quantity = c.UserBalance,
+                    CoinId = c.Id
+                });
+                c.UserBalance = 0;
+            });
+
+            await _context.SaveChangesAsync();
+
+            return new BuyResponseDTO
+            {
+                Changes = changeCoins
+            };
+        }
+
         private async Task<IEnumerable<Coin>> GetAllCoinsAsync()
         {
             return await _context.Coins.OrderByDescending(c => c.Value).ToListAsync();

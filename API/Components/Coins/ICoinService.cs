@@ -14,5 +14,6 @@ namespace API.Components.Coins
         Task<int> ClearBalanceAsync();
         Task MoveCoinsFromBalanceAsync();
         Task<IEnumerable<Change>> GiveChange(int change);
+        Task<BuyResponseDTO> RetrieveMoney();
     }
 }

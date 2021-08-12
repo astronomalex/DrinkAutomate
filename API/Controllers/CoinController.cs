@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Components.Coins;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,6 +28,12 @@ namespace API.Controllers
         public async Task<ActionResult<int>> GetBalance()
         {
             return Ok(await _coinService.GetBalanceAsync());
+        }
+        
+        [HttpPost("retrieve-money")]
+        public async Task<ActionResult<IEnumerable<Change>>> RetrieveMoney()
+        {
+            return Ok(await _coinService.RetrieveMoney());
         }
     }
 }
