@@ -1,0 +1,16 @@
+﻿version: '3.4'
+
+services: 
+  mssql_database:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      SA_PASSWORD: "Qwertyu7!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - projectname-mssql-data:/var/opt/mssql/data
+          
+volumes:
+  projectname-mssql-data:
