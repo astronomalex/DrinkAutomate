@@ -1,0 +1,18 @@
+<div class="card mb-4">
+  <div class="card-img-wrapper">
+    <img [src]="'data:image/jpeg;base64,'+drink.picture" alt="{{drink.id}}"  class="card-img-top"/>
+  </div>
+  <div class="card-body p-1">
+    <h6 class="card-title text-center mb-1"><i class="fa fa-shopping-bag mr-2"></i>
+      доступно: {{drink.quantity}} цена: {{drink.price}}
+    </h6>
+    <p class="card-text text-center">{{drink.name}}</p>
+    <a *ngIf="balance > drink.price && drink.quantity > 0" style="cursor: pointer" (click)="buyDrink()">
+      Купить
+    </a>
+
+  </div>
+</div>
+
+
+

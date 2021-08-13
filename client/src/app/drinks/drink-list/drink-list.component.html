@@ -1,0 +1,11 @@
+<p>drink-list works!</p>
+<div class="row">
+  <div
+    *ngFor="let drink of drinks" class="col-2">
+    <app-drink-card
+      (buyDrinkEvent)="buyDone($event)"
+      [balance]="balance"
+      [drink]="drink"></app-drink-card>
+  </div>
+</div>
+

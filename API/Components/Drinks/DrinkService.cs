@@ -97,7 +97,7 @@ namespace API.Components.Drink
             return 1;
         }
 
-        public async Task<BuyResponseDTO> BuyDrinkAsync(Guid id)
+        public async Task<IEnumerable<Change>> BuyDrinkAsync(Guid id)
         {
             var drink = await GetDrinkById(id);
             var balance = await _coinService.GetBalanceAsync();
@@ -115,18 +115,11 @@ namespace API.Components.Drink
             var moneyFromCoins= await _coinService.ClearBalanceAsync();
             var moneyFromBalance = balance - moneyFromCoins;
             _context.Automate.First(a => a.Id != null).Balance -= moneyFromBalance;
-            // if (moneyFromCoins < drink.Price)
-            // {
-            //     _context.Automate.First(a => a.Id != null).Balance -= drink.Price - moneyFromCoins;
-            // }
             
             GiveOutDrink(drink);
             var changes = await _coinService.GiveChange(change);
             await _context.SaveChangesAsync();
-            return new BuyResponseDTO
-            {
-                Changes = changes
-            };
+            return changes;
         }
         
         private async Task<Entities.Drink> GetDrinkById(Guid id)

@@ -18,16 +18,22 @@ namespace API.Controllers
             _coinService = coinService;
         }
         
-        [HttpPut]
-        public async Task<ActionResult<int>> InsertCoin(Guid id)
+        [HttpPut("insert/{value}")]
+        public async Task<ActionResult<int>> InsertCoin(int value)
         {
-            return Ok(await _coinService.InsertAsync(id));
+            return Ok(await _coinService.InsertAsync(value));
         }
         
-        [HttpGet]
+        [HttpGet("balance")]
         public async Task<ActionResult<int>> GetBalance()
         {
             return Ok(await _coinService.GetBalanceAsync());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CoinDTO>>> GetCoinDtos()
+        {
+            return Ok(await _coinService.GetCoins());
         }
         
         [HttpPost("retrieve-money")]
@@ -35,5 +41,7 @@ namespace API.Controllers
         {
             return Ok(await _coinService.RetrieveMoney());
         }
+        
+        
     }
 }

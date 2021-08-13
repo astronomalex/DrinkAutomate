@@ -25,8 +25,8 @@ namespace API.Controllers
             return Ok(await _drinksService.AddAsync(requestDto, picture));
         }
         
-        [HttpPost("buy")]
-        public async Task<ActionResult<IEnumerable<BuyResponseDTO>>> BuyDrink(Guid id)
+        [HttpPost("buy/{id}")]
+        public async Task<ActionResult<IEnumerable<Change>>> BuyDrink(Guid id)
         {
             return Ok(await _drinksService.BuyDrinkAsync(id));
         }

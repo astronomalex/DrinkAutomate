@@ -1,0 +1,9 @@
+<h1>Получите покупку</h1>
+<div mat-dialog-content>
+  Вы купили {{data.drink.name}}
+  Ваша сдача:
+  <p *ngFor="let change of data.changes">Монета {{change.coinValue}}руб. - {{change.quantity}}шт.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClick()">Забрать</button>
+</div>

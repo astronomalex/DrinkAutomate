@@ -21,9 +21,10 @@ namespace API.Components.Coins
             _automateService = automateService;
         }
 
-        public async Task<int> InsertAsync(Guid id)
+        public async Task<int> InsertAsync(int value)
         {
-            (await GetCoinById(id)).UserBalance++;
+            var coin = await _context.Coins.FirstAsync(c => c.Value == value);
+            (await GetCoinById(coin.Id)).UserBalance++;
             await _context.SaveChangesAsync();
             return await GetBalanceAsync();
         }
@@ -77,7 +78,7 @@ namespace API.Components.Coins
                 {
                     result.Add(new Change
                     {
-                        CoinId = coin.Id,
+                        CoinValue = coin.Value,
                         Quantity = count
                     });
                     coin.Quantity -= count;
@@ -105,7 +106,7 @@ namespace API.Components.Coins
                 changeCoins.Add(new Change
                 {
                     Quantity = c.UserBalance,
-                    CoinId = c.Id
+                    CoinValue = c.Value
                 });
                 c.UserBalance = 0;
             });
@@ -118,6 +119,21 @@ namespace API.Components.Coins
             };
         }
 
+        public async Task<IEnumerable<CoinDTO>> GetCoins()
+        {
+            var coinDtos = new List<CoinDTO>();
+            await _context.Coins.ForEachAsync(c =>
+            {
+                coinDtos.Add(new CoinDTO
+                {
+                    Id = c.Id,
+                    Value = c.Value,
+                    Active = c.Active
+                });
+            });
+            return coinDtos;
+        }
+
         private async Task<IEnumerable<Coin>> GetAllCoinsAsync()
         {
             return await _context.Coins.OrderByDescending(c => c.Value).ToListAsync();
@@ -125,14 +141,7 @@ namespace API.Components.Coins
 
         private async Task<int> GetSumOfChangeCoins(IEnumerable<Change> changeCoins)
         {
-            var result = 0;
-            foreach (var changeCoin in changeCoins)
-            {
-                var coin = await _context.Coins.SingleAsync(c => c.Id == changeCoin.CoinId);
-                result += changeCoin.Quantity * coin.Value;
-            }
-
-            return result;
+            return changeCoins.Sum(changeCoin => changeCoin.Quantity * changeCoin.CoinValue);
         }
     }
 }

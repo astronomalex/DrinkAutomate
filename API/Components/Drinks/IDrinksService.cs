@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Models;
@@ -12,6 +13,6 @@ namespace API.Components.Drink
         Task<ICollection<DrinkResponseDTO>> GetListAsync();
         Task<DrinkResponseDTO> EditAsync(DrinkAddRequestDTO drinkDto, IFormFile picture);
         Task<int> DeleteAsync(Guid id);
-        Task<BuyResponseDTO> BuyDrinkAsync(Guid id);
+        Task<IEnumerable<Change>> BuyDrinkAsync(Guid id);
     }
 }

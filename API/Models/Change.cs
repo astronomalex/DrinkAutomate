@@ -4,7 +4,7 @@ namespace API.Models
 {
     public class Change
     {
-        public Guid CoinId { get; set; }
+        public int CoinValue { get; set; }
         public int Quantity { get; set; }
     }
 }
