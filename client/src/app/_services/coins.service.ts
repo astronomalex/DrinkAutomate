@@ -26,4 +26,8 @@ export class CoinsService {
     return this.http.get<Coin[]>(this.baseUrl + 'coin');
   }
 
+  saveCoinsOnBase(coins: Coin[]): Observable<number> {
+    return this.http.post<number>(this.baseUrl + 'coin/save', coins);
+  }
+
 }

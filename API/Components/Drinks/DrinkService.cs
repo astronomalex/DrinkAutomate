@@ -26,15 +26,12 @@ namespace API.Components.Drink
             _coinService = coinService;
         }
 
-        public async Task<DrinkResponseDTO> AddAsync(DrinkAddRequestDTO requestDto, IFormFile picture)
+        public async Task<DrinkResponseDTO> AddAsync(DrinkAddRequestDTO requestDto)
         {
-            await using var ms = new MemoryStream();
-            await picture.CopyToAsync(ms);
             var drink = new Entities.Drink
             {
                 Name = requestDto.Name,
-                Price = requestDto.Price,
-                Picture = ms.ToArray()
+                Price = requestDto.Price
             };
                 
             await _context.Drinks.AddAsync(drink);
@@ -66,13 +63,17 @@ namespace API.Components.Drink
 
         public async Task<DrinkResponseDTO> EditAsync(DrinkAddRequestDTO drinkAddRequestDto, IFormFile picture)
         {
-            await using var ms = new MemoryStream();
-            await picture.CopyToAsync(ms);
+           
             var drink = _context.Drinks.FirstOrDefault(d => d.Id == drinkAddRequestDto.Id);
+            if (picture != null)
+            {
+                await using var ms = new MemoryStream();
+                await picture.CopyToAsync(ms);
+                drink.Picture = ms.ToArray();
+            }
             drink.Name = drinkAddRequestDto.Name;
             drink.Price = drinkAddRequestDto.Price;
             drink.Quantity = drinkAddRequestDto.Quantity;
-            drink.Picture = ms.ToArray();
             
             await _context.SaveChangesAsync();
             return new DrinkResponseDTO

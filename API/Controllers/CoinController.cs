@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Components.Coins;
+using API.Entities;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,13 @@ namespace API.Controllers
         {
             _coinService = coinService;
         }
-        
+
         [HttpPut("insert/{value}")]
         public async Task<ActionResult<int>> InsertCoin(int value)
         {
             return Ok(await _coinService.InsertAsync(value));
         }
-        
+
         [HttpGet("balance")]
         public async Task<ActionResult<int>> GetBalance()
         {
@@ -35,13 +36,17 @@ namespace API.Controllers
         {
             return Ok(await _coinService.GetCoins());
         }
-        
+
         [HttpPost("retrieve-money")]
         public async Task<ActionResult<IEnumerable<Change>>> RetrieveMoney()
         {
             return Ok(await _coinService.RetrieveMoney());
         }
-        
-        
+
+        [HttpPost("save")]
+        public async Task<ActionResult<int>> SaveAllCoins([FromBody] IEnumerable<Coin> coins)
+        {
+            return await _coinService.SaveCoins(coins);
+        }
     }
 }

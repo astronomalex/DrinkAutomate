@@ -1,0 +1,31 @@
+<h3>Панель Администратора</h3>
+<div class="row">
+    <button (click)="newDrink()">Добавить</button>
+    <div
+      *ngFor="let drink of drinks" class="col-2">
+      <app-admin-drink-item
+        (reloadEmitter)="updateInfo()"
+        [drink]="drink"></app-admin-drink-item>
+    </div>
+
+
+
+  <div>
+    <h3>Монеты</h3>
+    <div *ngFor="let coin of coins">
+      <div class="col-lg-4">
+        <p>{{coin.value}} р.</p>
+        <input type="number" [(ngModel)]="coin.quantity" min="0">
+        <span>Активна</span>
+        <input type="checkbox" [(ngModel)]="coin.active">
+        <hr>
+      </div>
+
+    </div>
+    <button
+      type="submit"
+      (click)="saveCoins()">Сохранить
+    </button>
+  </div>
+
+</div>

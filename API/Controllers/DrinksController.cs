@@ -20,9 +20,9 @@ namespace API.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<DrinkResponseDTO>> Add(DrinkAddRequestDTO requestDto, IFormFile picture)
+        public async Task<ActionResult<DrinkResponseDTO>> Add([FromBody] DrinkAddRequestDTO requestDto)
         {
-            return Ok(await _drinksService.AddAsync(requestDto, picture));
+            return Ok(await _drinksService.AddAsync(requestDto));
         }
         
         [HttpPost("buy/{id}")]
@@ -44,7 +44,7 @@ namespace API.Controllers
             return Ok(await _drinksService.EditAsync(requestDto, picture));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var result = await _drinksService.DeleteAsync(id);

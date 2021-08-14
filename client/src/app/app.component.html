@@ -1,21 +1,8 @@
-<div>
+<div class="container">
   <h1> Автомат Напитков </h1>
   <div class="row">
-    <div class="col-lg-8">
-      <app-drink-list
-        (buyDoneEvent)="updateInfo()"
-        [balance]="balance"
-        [drinks]="drinks"></app-drink-list>
-    </div>
-    <div class="col-lg-4">
-      <button [disabled]="!getCoinActive(1)" class="btn btn-dark ml-1" (click)="addCoin(1)">1</button>
-      <button [disabled]="!getCoinActive(2)" class="btn btn-dark ml-1" (click)="addCoin(2)">2</button>
-      <button [disabled]="!getCoinActive(5)" class="btn btn-dark ml-1" (click)="addCoin(5)">5</button>
-      <button [disabled]="!getCoinActive(10)" class="btn btn-dark ml-1" (click)="addCoin(10)">10</button>
-
-      <h2>Баланс: {{balance}}</h2>
-
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
     </div>
   </div>
-
 </div>

@@ -7,12 +7,9 @@
       доступно: {{drink.quantity}} цена: {{drink.price}}
     </h6>
     <p class="card-text text-center">{{drink.name}}</p>
-    <a *ngIf="balance > drink.price && drink.quantity > 0" style="cursor: pointer" (click)="buyDrink()">
+    <a *ngIf="balance >= drink.price && drink.quantity > 0" style="cursor: pointer" (click)="buyDrink()">
       Купить
     </a>
 
   </div>
 </div>
-
-
-

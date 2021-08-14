@@ -128,10 +128,26 @@ namespace API.Components.Coins
                 {
                     Id = c.Id,
                     Value = c.Value,
-                    Active = c.Active
+                    Active = c.Active,
+                    Quantity = c.Quantity
                 });
             });
             return coinDtos;
+        }
+
+        public async Task<int> SaveCoins(IEnumerable<Coin> coins)
+        {
+            foreach (var coin in coins)
+            {
+                var coinFromStore = _context.Coins.First(c => c.Id == coin.Id);
+                if (coinFromStore != null)
+                {
+                   coinFromStore.Active = coin.Active; 
+                   coinFromStore.Quantity = coin.Quantity; 
+                }
+            }
+
+            return await _context.SaveChangesAsync();
         }
 
         private async Task<IEnumerable<Coin>> GetAllCoinsAsync()
