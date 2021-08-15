@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Drink} from '../../_models/drink';
 import {DrinksService} from '../../_services/drinks.service';
 import {first, take} from 'rxjs/operators';
-import {$e} from 'codelyzer/angular/styles/chars';
 import {MatDialog} from '@angular/material/dialog';
 import {AdminAddDrinkDialogComponent} from '../admin-add-drink-dialog/admin-add-drink-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -47,7 +46,7 @@ export class AdminDrinkListComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AdminAddDrinkDialogComponent, {
-      width: '250px',
+      width: '300px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

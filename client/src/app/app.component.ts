@@ -1,12 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Drink} from './_models/drink';
-import {Coin} from './_models/coin';
-import {DrinksService} from './_services/drinks.service';
-import {CoinsService} from './_services/coins.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {ActivatedRoute, Params} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +7,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'client';
+
   constructor() {
   }
 

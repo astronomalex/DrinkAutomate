@@ -6,8 +6,8 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Coin} from '../_models/coin';
 import {CoinsService} from '../_services/coins.service';
-import {Guid} from 'guid-typescript';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-panel',
@@ -26,13 +26,13 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private drinksService: DrinksService,
-    private coinsService: CoinsService
+    private coinsService: CoinsService,
+    private snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit(): void {
     this.updateInfo();
-
   }
 
   initForm(): void {
@@ -55,10 +55,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  loger(i): void {
-    console.log(i);
-  }
-
   updateInfo(): void {
     this.drinksService.getDrinks().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(drinks => {
       this.drinks = drinks;
@@ -74,16 +70,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   saveCoins(event): void {
     this.coinsService.saveCoinsOnBase(event).pipe(takeUntil(this.ngUnsubscribe$)).subscribe(result => {
       this.updateInfo();
+      this.snackBar.open('Монеты Сохранены', 'Ok', {duration: 3000});
     });
-  }
-
-  // newDrink(): void {
-  //   this.drinksService.addDrink({quantity: 0, price: 0, name: '', picture: []}).pipe(takeUntil(this.ngUnsubscribe$)).subscribe(result => {
-  //     this.updateInfo();
-  //   });
-  // }
-
-  submit(): void {
-
   }
 }

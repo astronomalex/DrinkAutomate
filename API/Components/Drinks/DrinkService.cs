@@ -31,6 +31,7 @@ namespace API.Components.Drink
             {
                 Name = requestDto.Name,
                 Price = requestDto.Price,
+                Quantity = requestDto.Quantity,
                 Picture = await ConvertPictureToByteArray(picture),
             };
 
@@ -122,7 +123,7 @@ namespace API.Components.Drink
             var moneyFromBalance = balance - moneyFromCoins;
             _context.Automate.First(a => a.Id != null).Balance -= moneyFromBalance;
 
-            GiveOutDrink(drink);
+            await GiveOutDrink(drink);
             var changes = await _coinService.GiveChange(change);
             await _context.SaveChangesAsync();
             return changes;

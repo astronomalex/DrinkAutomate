@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Drink} from '../../_models/drink';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DrinkCardComponent} from '../../drinks/drink-card/drink-card.component';
 import {CreateUrlFromBlobService} from '../../_services/create-url-from-blob.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
@@ -11,23 +10,10 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
   styleUrls: ['./admin-drink-list-item.component.css']
 })
 export class AdminDrinkListItemComponent implements OnInit {
-  @Input() set drink(value: Drink) {
-    if (!value) {
-      return;
-    }
-    this.type = 'edit';
-    this.drinkFormControl.get('id').setValue(value.id);
-    this.drinkFormControl.get('name').setValue(value.name);
-    this.drinkFormControl.get('price').setValue(value.price);
-    this.drinkFormControl.get('quantity').setValue(value.quantity);
-    this.setImgUrl(value.picture);
-  }
-
   @Output() submitDrink = new EventEmitter<Drink>();
   @Output() deleteDrink = new EventEmitter<string>();
   public imgSrc: SafeUrl;
   public type: 'add' | 'edit' = 'add';
-
   drinkFormControl = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
@@ -38,6 +24,18 @@ export class AdminDrinkListItemComponent implements OnInit {
 
   constructor(public createUrlFromBlobService: CreateUrlFromBlobService,
               public sanitiser: DomSanitizer) {
+  }
+
+  @Input() set drink(value: Drink) {
+    if (!value) {
+      return;
+    }
+    this.type = 'edit';
+    this.drinkFormControl.get('id').setValue(value.id);
+    this.drinkFormControl.get('name').setValue(value.name);
+    this.drinkFormControl.get('price').setValue(value.price);
+    this.drinkFormControl.get('quantity').setValue(value.quantity);
+    this.setImgUrl(value.picture);
   }
 
   ngOnInit(): void {

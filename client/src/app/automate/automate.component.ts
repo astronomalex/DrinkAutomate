@@ -3,7 +3,6 @@ import {Drink} from '../_models/drink';
 import {Coin} from '../_models/coin';
 import {Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {DrinksService} from '../_services/drinks.service';
 import {CoinsService} from '../_services/coins.service';
 import {takeUntil} from 'rxjs/operators';

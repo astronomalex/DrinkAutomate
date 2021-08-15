@@ -1,0 +1,24 @@
+<div>
+  <form (ngSubmit)="saveCoins()" [formGroup]="coinForm">
+    <h3>Монеты</h3>
+    <div formArrayName="coinFormArray">
+      <div class="row">
+        <div *ngFor="let coinControl of getControlsCoins(); let i = index"
+             [formGroupName]="i">
+          <div class="col-3">
+            <mat-form-field>
+              <mat-label>{{coinControl.value.value}} р.</mat-label>
+              <input formControlName="quantity" min="0" type="number"  matInput>
+            </mat-form-field>
+            <span>Активна</span>
+            <input formControlName="active" type="checkbox">
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button  [disabled]="!(coinForm.valid && coinForm.dirty)"
+            type="submit"
+             mat-button>Сохранить монеты</button>
+  </form>
+</div>

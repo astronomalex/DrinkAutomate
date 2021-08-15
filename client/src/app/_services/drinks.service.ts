@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {Change} from '../_models/change';
 import {Guid} from 'guid-typescript';
 import {CreateDrinkDto} from '../_models/create-drink-dto';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'

@@ -1,20 +1,8 @@
 <h3>Панель Администратора</h3>
-<app-admin-drink-list></app-admin-drink-list>
+
 <app-coin-form
-  *ngIf="coins"
   (saveCoinsEmitter)="saveCoins($event)"
+  *ngIf="coins"
   [coins]="coins"></app-coin-form>
-<!--<form [formGroup]="adminForm" (ngSubmit)="submit()">-->
-<!--  <div class="row">-->
-<!--    <button (click)="newDrink()">Добавить</button>-->
-<!--    <div [formGroup]="drinksFormArray"-->
-<!--       class="col-2">-->
-<!--      <app-admin-drink-item-->
-<!--        *ngFor="let drinkFormGroup of drinksFormArray"-->
-<!--        [drinkItemFormGroup]="drinkFormGroup"-->
-<!--        (reloadEmitter)="updateInfo()"></app-admin-drink-item>-->
-<!--    </div>-->
 
-
-<!--  </div>-->
-<!--</form>-->
+<app-admin-drink-list></app-admin-drink-list>

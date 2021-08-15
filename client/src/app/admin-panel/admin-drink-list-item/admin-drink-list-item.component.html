@@ -1,46 +1,49 @@
-<form [formGroup]="drinkFormControl" (ngSubmit)="onSubmit()">
-  <mat-card-content>
+<form (ngSubmit)="onSubmit()" [formGroup]="drinkFormControl">
+  <mat-card-content class="container-fluid">
     <p>
       <mat-form-field>
         <mat-label>Название напитка</mat-label>
-        <input type="text" matInput formControlName="name">
+        <input formControlName="name" matInput type="text">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Цена</mat-label>
-        <input type="number" matInput formControlName="price">
+        <input formControlName="price" matInput type="number">
       </mat-form-field>
     </p>
 
     <p>
       <mat-form-field>
         <mat-label>Колличество</mat-label>
-        <input type="number" matInput formControlName="quantity">
+        <input formControlName="quantity" matInput type="number">
       </mat-form-field>
     </p>
     <p>
-      <img *ngIf="imgSrc" [src]="imgSrc" alt="" style="height: 200px; width: 200px;">
+      <img *ngIf="imgSrc" [src]="imgSrc" alt="" style="width: 200px;">
     </p>
     <mat-card-actions>
       <input
-        type="file"
-        class="file-upload"
+        (change)="selectPicture($event.target.files[0])"
         accept="image/jpeg"
-        (change)="selectPicture($event.target.files[0])">
+        class="file-upload"
+        type="file">
       <button *ngIf="type === 'edit'"
+              [disabled]="!(drinkFormControl.valid && drinkFormControl.dirty)"
               mat-button
-              type="submit"
-              [disabled]="!(drinkFormControl.valid && drinkFormControl.dirty)">Сохранить</button>
+              type="submit">Сохранить
+      </button>
 
-      <button *ngIf="type === 'edit'"
-              mat-button
-              (click)="onDelete()">Удалить</button>
+      <button (click)="onDelete()"
+              *ngIf="type === 'edit'"
+              mat-button>Удалить
+      </button>
 
       <button *ngIf="type === 'add'"
-              mat-button
               [disabled]="!(drinkFormControl.valid)"
-              [mat-dialog-close]="getDrinkFromForm()">Добавить</button>
+              [mat-dialog-close]="getDrinkFromForm()"
+              mat-button>Добавить
+      </button>
 
       <button *ngIf="type === 'add'" mat-button mat-dialog-close>Отмена</button>
     </mat-card-actions>
