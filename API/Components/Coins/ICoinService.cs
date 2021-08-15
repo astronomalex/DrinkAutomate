@@ -16,6 +16,6 @@ namespace API.Components.Coins
         Task<IEnumerable<Change>> GiveChange(int change);
         Task<BuyResponseDTO> RetrieveMoney();
         Task<IEnumerable<CoinDTO>> GetCoins();
-        Task<int> SaveCoins(IEnumerable<Coin> coins);
+        Task<int> SaveCoins(IEnumerable<SaveCoinsDTO> saveCoinsDtos);
     }
 }

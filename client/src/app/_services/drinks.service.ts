@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
 import {Change} from '../_models/change';
 import {Guid} from 'guid-typescript';
 import {CreateDrinkDto} from '../_models/create-drink-dto';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,12 @@ export class DrinksService {
   }
 
   addDrink(drinkDTO: CreateDrinkDto): Observable<Drink> {
-    return this.http.post<Drink>(this.baseUrl + 'drinks', drinkDTO);
+    const content = new FormData();
+    content.append('picture', drinkDTO.picture);
+    return this.http.post<Drink>(`${this.baseUrl}drinks?name=${encodeURIComponent(drinkDTO.name)}` +
+      `&quantity=${encodeURIComponent(drinkDTO.quantity.toString())}` +
+      `&price=${encodeURIComponent(drinkDTO.price.toString())}`, content);
+    // return this.http.post<Drink>(this.baseUrl + 'drinks', drinkDTO);
   }
 
   buyDrink(drink: Drink): Observable<Change[]> {
@@ -32,8 +38,8 @@ export class DrinksService {
     const content = new FormData();
     content.append('picture', picture);
     return this.http.put<Drink>(`${this.baseUrl}drinks?id=${encodeURIComponent(drink.id as any as string)}` +
-    `&name=${encodeURIComponent(drink.name)}&quantity=${encodeURIComponent(drink.quantity.toString())}` +
-    `&price=${encodeURIComponent(drink.price.toString())}`, content);
+      `&name=${encodeURIComponent(drink.name)}&quantity=${encodeURIComponent(drink.quantity.toString())}` +
+      `&price=${encodeURIComponent(drink.price.toString())}`, content);
   }
 
   deleteDrink(id: Guid): Observable<any> {

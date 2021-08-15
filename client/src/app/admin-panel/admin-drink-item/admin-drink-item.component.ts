@@ -18,6 +18,10 @@ export class AdminDrinkItemComponent implements OnInit {
   picUrl: SafeUrl;
   // drinkForm: FormGroup;
   public image;
+  @Input() index: number;
+  @Output() public removed: EventEmitter<number> = new EventEmitter<number>();
+  @Input() drinkItemFormGroup: FormGroup;
+
 
   constructor(
     private drinksService: DrinksService,
@@ -37,15 +41,11 @@ export class AdminDrinkItemComponent implements OnInit {
   // }
 
   // initForm(): void {
-  //   const name = this.drink.name;
-  //   const price = this.drink.price;
-  //   const quantity = this.drink.quantity;
-  //   let picture;
+  //   let picture: number[] = [] ;
   //   this.drinkForm = new FormGroup({
-  //     name: new FormControl(name, Validators.required),
-  //     price: new FormControl(price, Validators.required),
-  //     quantity: new FormControl(quantity, Validators.required),
-  //     picture: new FormControl(picture)
+  //     name: new FormControl(this.drink.name, Validators.required),
+  //     price: new FormControl(this.drink.price, Validators.required),
+  //     quantity: new FormControl(this.drink.quantity, Validators.required)
   //   });
   // }
 
@@ -55,13 +55,13 @@ export class AdminDrinkItemComponent implements OnInit {
     console.log(this.picUrl);
   }
 
-  onSubmit(): void {
-    this.drinksService.updateDrink(this.drink, this.picture).pipe(take(1)).subscribe(drink => {
-      if (drink) {
-        this.reloadEmitter.emit();
-      }
-    });
-  }
+  // onSubmit(): void {
+  //   this.drinksService.updateDrink(this.drink, this.picture).pipe(take(1)).subscribe(drink => {
+  //     if (drink) {
+  //       this.reloadEmitter.emit();
+  //     }
+  //   });
+  // }
 
   onDelete(): void {
     this.drinksService.deleteDrink(this.drink.id).pipe(take(1)).subscribe(() => {

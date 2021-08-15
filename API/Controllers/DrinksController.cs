@@ -20,9 +20,9 @@ namespace API.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<DrinkResponseDTO>> Add([FromBody] DrinkAddRequestDTO requestDto)
+        public async Task<ActionResult<DrinkResponseDTO>> Add(DrinkAddRequestDTO requestDto, IFormFile picture)
         {
-            return Ok(await _drinksService.AddAsync(requestDto));
+            return Ok(await _drinksService.AddAsync(requestDto, picture));
         }
         
         [HttpPost("buy/{id}")]
@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<ICollection<DrinkResponseDTO>>> GetList()
         {
-            var drinksResponseDto = await _drinksService.GetListAsync();
+            var drinksResponseDto = _drinksService.GetListAsync();
             return Ok(drinksResponseDto);
         }
 

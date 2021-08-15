@@ -2,6 +2,6 @@
 export interface CreateDrinkDto {
   name: string;
   price: number;
-  picture: number[];
+  picture: File;
   quantity: number;
 }

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Coin} from '../_models/coin';
+import {SaveCoinDto} from '../_models/save-coin-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class CoinsService {
     return this.http.get<Coin[]>(this.baseUrl + 'coin');
   }
 
-  saveCoinsOnBase(coins: Coin[]): Observable<number> {
-    return this.http.post<number>(this.baseUrl + 'coin/save', coins);
+  saveCoinsOnBase(saveCoinDtos: SaveCoinDto[]): Observable<number> {
+    return this.http.post<number>(this.baseUrl + 'coin/save', saveCoinDtos);
   }
 
 }

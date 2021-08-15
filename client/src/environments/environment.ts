@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/',
-  secretKey: 'this_is a secret'
+  secretKey: 'this_is-a_secret'
 };
 
 /*

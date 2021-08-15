@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-content>
+    <button (click)="openDialog()">Добавить</button>
+  </mat-card-content>
+  <app-admin-drink-list-item *ngFor="let drink of drinkList; let i = index; trackBy: trackByFn"
+                             [drink]="drink"
+                             class="drink"
+                             (submitDrink)="submitDrink($event)"
+                             (deleteDrink)="deleteDrink($event)"></app-admin-drink-list-item>
+</mat-card>

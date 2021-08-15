@@ -10,10 +10,7 @@
   transform: scale(1.0, 1.0);
   transition-duration: 500ms;
   transition-timing-function: ease-out;
-
   text-align: center;
-
-  background-color: #ffc;
 }
 
 .card-img-top {
@@ -50,4 +47,13 @@
 
 .animate {
   transition: all 0.3s ease-in-out;
+}
+
+.canBuy {
+  border-color: green!important;
+}
+
+.mb-4 {
+  border-color: red;
+  border-width: medium;
 }

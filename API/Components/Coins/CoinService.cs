@@ -135,15 +135,15 @@ namespace API.Components.Coins
             return coinDtos;
         }
 
-        public async Task<int> SaveCoins(IEnumerable<Coin> coins)
+        public async Task<int> SaveCoins(IEnumerable<SaveCoinsDTO> saveCoinsDtos)
         {
-            foreach (var coin in coins)
+            foreach (var saveCoinsDto in saveCoinsDtos)
             {
-                var coinFromStore = _context.Coins.First(c => c.Id == coin.Id);
+                var coinFromStore = _context.Coins.First(c => c.Value == saveCoinsDto.Value);
                 if (coinFromStore != null)
                 {
-                   coinFromStore.Active = coin.Active; 
-                   coinFromStore.Quantity = coin.Quantity; 
+                   coinFromStore.Active = saveCoinsDto.Active; 
+                   coinFromStore.Quantity = saveCoinsDto.Quantity; 
                 }
             }
 

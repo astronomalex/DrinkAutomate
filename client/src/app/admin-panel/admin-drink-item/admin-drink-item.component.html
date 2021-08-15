@@ -1,47 +1,52 @@
 <div>
-  <div class="card mb-4">
-    <div>
-      <img *ngIf="!picUrl" [src]="'data:image/jpeg;base64,'+drink.picture" alt="{{drink.id}}" class="card-img-top"/>
-      <img [src]="picUrl" *ngIf="picUrl" class="card-img-top"/>
+  <div class="card mb-6" [formGroup]="drinkItemFormGroup">
+
+<!--    <div class="form-group row" [formGroup]="drinkItem"></div>-->
+
+      <div>
+        <img *ngIf="!picUrl" [src]="'data:image/jpeg;base64,'+drink.picture" alt="{{drink.id}}" class="card-img-top"/>
+        <img [src]="picUrl" *ngIf="picUrl" class="card-img-top"/>
+      </div>
+
+      <label [attr.for]="'name'+index">Название</label>
+      <input
+        [attr.id]="'name'+index"
+        class="col-12"
+        formControlName="name"
+        type="text"
+      >
+      <hr>
+
+    <label [attr.for]="'price'+index">Цена</label>
+      <input
+        [attr.id]="'price'+index"
+        formControlName="price"
+        type="number"
+        min="0"
+        max="1000">
+      <hr>
+
+    <label [attr.for]="'quantity'+index">Колличество</label>
+      <input
+        [attr.id]="'quantity'+index"
+        formControlName="quantity"
+        type="number"
+        min="0"
+        max="100">
+      <hr>
+
+    <label [attr.for]="'picture'+index">Изображение</label>
+      <input
+        [attr.id]="'picture'+index"
+        type="file"
+        class="file-upload"
+        accept="image/jpeg"
+        (change)="selectPicture($event.target.files[0])">
+
+    <div class="col-sm-1 py-1">
+      <button type="button" class="btn"
+              (click)="removed.emit(index)">Удалить</button>
     </div>
-
-    <p>Название</p>
-    <input
-      type="text"
-      [(ngModel)]="drink.name">
-
-    <p>Цена</p>
-    <input
-      type="number"
-      min="0"
-      max="1000"
-      [(ngModel)]="drink.price">
-
-    <p>Колличество</p>
-    <input
-      type="number"
-      min="0"
-      max="100"
-      [(ngModel)]="drink.quantity">
-
-    <p>Изображение</p>
-    <input
-      type="file"
-      id="picture"
-      class="file-upload"
-      accept="image/jpeg"
-      (change)="selectPicture($event.target.files[0])">
-
-    <button
-      (click)="onSubmit()"
-      type="submit">Сохранить
-    </button>
-
-    <button
-      (click)="onDelete()"
-      type="button">Удалить
-    </button>
-
 
 
     <!--    <form [formGroup]="drinkForm">-->
@@ -67,9 +72,6 @@
     <!--          formControlName="quantity"-->
     <!--          id="quantity"-->
     <!--          matInput>-->
-
-
-
 
 
     <!--      </div>-->

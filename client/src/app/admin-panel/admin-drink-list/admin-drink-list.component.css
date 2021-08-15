@@ -1,0 +1,9 @@
+.mat-card {
+  margin: unset;
+  display: grid;
+  justify-content: stretch;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "drink drink drink";
+}

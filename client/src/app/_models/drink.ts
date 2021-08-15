@@ -4,6 +4,6 @@ export interface Drink{
   id: Guid;
   name: string;
   price: number;
-  picture: number[];
+  picture: string;
   quantity: number;
 }

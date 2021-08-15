@@ -44,9 +44,9 @@ namespace API.Controllers
         }
 
         [HttpPost("save")]
-        public async Task<ActionResult<int>> SaveAllCoins([FromBody] IEnumerable<Coin> coins)
+        public async Task<ActionResult<int>> SaveAllCoins([FromBody] IEnumerable<SaveCoinsDTO> saveCoinsDtos)
         {
-            return await _coinService.SaveCoins(coins);
+            return await _coinService.SaveCoins(saveCoinsDtos);
         }
     }
 }
